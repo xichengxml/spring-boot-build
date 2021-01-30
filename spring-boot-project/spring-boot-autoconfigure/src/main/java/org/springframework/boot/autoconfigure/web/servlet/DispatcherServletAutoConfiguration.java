@@ -95,6 +95,7 @@ public class DispatcherServletAutoConfiguration {
 			this.webMvcProperties = webMvcProperties;
 		}
 
+		// 加载到IOC容器
 		@Bean(name = DEFAULT_DISPATCHER_SERVLET_BEAN_NAME)
 		public DispatcherServlet dispatcherServlet() {
 			DispatcherServlet dispatcherServlet = new DispatcherServlet();
@@ -144,6 +145,7 @@ public class DispatcherServletAutoConfiguration {
 			DispatcherServletRegistrationBean registration = new DispatcherServletRegistrationBean(
 					dispatcherServlet, this.webMvcProperties.getServlet().getPath());
 			registration.setName(DEFAULT_DISPATCHER_SERVLET_BEAN_NAME);
+			// *
 			registration.setLoadOnStartup(
 					this.webMvcProperties.getServlet().getLoadOnStartup());
 			if (this.multipartConfig != null) {
