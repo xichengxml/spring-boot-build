@@ -115,14 +115,19 @@ public class AutoConfigurationImportSelector
 		if (!isEnabled(annotationMetadata)) {
 			return EMPTY_ENTRY;
 		}
+		// 获取注解属性
 		AnnotationAttributes attributes = getAttributes(annotationMetadata);
+		// * 从META-INF/spring.factories中加载EnableAutoConfiguration类
 		List<String> configurations = getCandidateConfigurations(annotationMetadata,
 				attributes);
+		// 去重
 		configurations = removeDuplicates(configurations);
+		// 排除掉的类
 		Set<String> exclusions = getExclusions(annotationMetadata, attributes);
 		checkExcludedClasses(configurations, exclusions);
 		configurations.removeAll(exclusions);
 		configurations = filter(configurations, autoConfigurationMetadata);
+		// 监听模式
 		fireAutoConfigurationImportEvents(configurations, exclusions);
 		return new AutoConfigurationEntry(configurations, exclusions);
 	}
@@ -178,6 +183,7 @@ public class AutoConfigurationImportSelector
 	 */
 	protected List<String> getCandidateConfigurations(AnnotationMetadata metadata,
 			AnnotationAttributes attributes) {
+		// *
 		List<String> configurations = SpringFactoriesLoader.loadFactoryNames(
 				getSpringFactoriesLoaderFactoryClass(), getBeanClassLoader());
 		Assert.notEmpty(configurations,

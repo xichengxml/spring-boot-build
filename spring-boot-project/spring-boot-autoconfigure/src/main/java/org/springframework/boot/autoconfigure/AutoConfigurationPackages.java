@@ -126,6 +126,7 @@ public abstract class AutoConfigurationPackages {
 		@Override
 		public void registerBeanDefinitions(AnnotationMetadata metadata,
 				BeanDefinitionRegistry registry) {
+			// *
 			register(registry, new PackageImport(metadata).getPackageName());
 		}
 
@@ -173,6 +174,7 @@ public abstract class AutoConfigurationPackages {
 
 	/**
 	 * Holder for the base package (name may be null to indicate no scanning).
+	 *	保存扫描路径，spring-data-jpa查询时获取扫描路径使用
 	 */
 	static final class BasePackages {
 
